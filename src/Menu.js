@@ -7,6 +7,7 @@ import AddSport from "./addSport";
 import Sports from "./Sports";
 import SportsAdmin from "./SportsAdmin";
 import SportTeams from "./SportTeams";
+import SportTeamsAdmin from "./SportTeamsAdmin";
 import facade from "./apiFacade";
 import React, { useState, useEffect } from "react";
 import { NavLink, Route, Switch } from "react-router-dom";
@@ -70,6 +71,12 @@ export default function Menu() {
                 <NavLink activeClassName="active" to="/sportteams">All Sport Teams</NavLink>
               </li>
             )}
+          {
+            isAdmin && (
+              <li>
+                <NavLink activeClassName="active" to="/sportteamsadmin">All Sport Teams</NavLink>
+              </li>
+            )}
           <li>
             <NavLink activeClassName="active" to="/adduser">Add User</NavLink>
           </li>
@@ -106,6 +113,9 @@ export default function Menu() {
         </Route>
         <Route path="/sportteams">
           <SportTeams />
+        </Route>
+        <Route path="/sportteamsadmin">
+          <SportTeamsAdmin />
         </Route>
         <Route path="/adduser">
           <AddUser />

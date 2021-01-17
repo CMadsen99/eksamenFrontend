@@ -142,6 +142,16 @@ function apiFacade() {
     return fetch(URL + "/api/sports/teams/all", options).then(handleHttpErrors);
   };
 
+  const fetchEditSportTeam = (sportTeam, id) => {
+    const options = makeOptions("PUT", true, sportTeam); //True add's the token
+    return fetch(URL + "/api/sports/teams/" + id, options).then(handleHttpErrors);
+  };
+
+  const fetchDeleteSportTeam = (id) => {
+    const options = makeOptions("DELETE", true); //True add's the token
+    return fetch(URL + "/api/sports/teams/" + id, options).then(handleHttpErrors);
+  };
+
   const makeOptions = (method, addToken, body) => {
     var opts = {
       method: method,
@@ -174,6 +184,8 @@ function apiFacade() {
     fetchAllSports,
     fetchAddSportTeam,
     fetchAllSportTeams,
+    fetchEditSportTeam,
+    fetchDeleteSportTeam,
     getRole,
     getUser,
   };
