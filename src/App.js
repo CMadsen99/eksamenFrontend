@@ -55,13 +55,16 @@ function App() {
   return (
     <div>
       {!loggedIn ? (
-        <LogIn login={login} />
+        <>
+          <LogIn login={login} />
+          <Menu />
+        </>
       ) : (
-        <div>
-          <LoggedIn />
-          <button className="button" onClick={logout}>Logout</button>
-        </div>
-      )}
+          <div>
+            <LoggedIn />
+            <button className="button" onClick={logout}>Logout</button>
+          </div>
+        )}
     </div>
   );
 }

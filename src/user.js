@@ -2,7 +2,7 @@ import facade from "./apiFacade";
 import React, { useState, useEffect } from "react";
 
 const User = () => {
-  const [dataFromServer, setDataFromServer] = useState("Loading...");
+  const [dataFromServer, setDataFromServer] = useState("Login for more features");
 
   useEffect(() => {
     facade.fetchUserData().then((data) => setDataFromServer(data.msg));

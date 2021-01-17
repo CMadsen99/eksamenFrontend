@@ -1,12 +1,12 @@
-import ProductSearch from "./ProductSearch";
-import Category from "./category";
 import User from "./user";
 import Home from "./home";
-import OnSale from "./onSale";
 import AddUser from "./AddUser";
 import EditUser from "./editUser";
 import Users from "./Users";
-import Favorit from "./Favorit";
+import AddSport from "./addSport";
+import Sports from "./Sports";
+import SportsAdmin from "./SportsAdmin";
+import SportTeams from "./SportTeams";
 import facade from "./apiFacade";
 import React, { useState, useEffect } from "react";
 import { NavLink, Route, Switch } from "react-router-dom";
@@ -14,12 +14,21 @@ import { NavLink, Route, Switch } from "react-router-dom";
 export default function Menu() {
   const role = facade.getRole();
   const [isAdmin, setIsAdmin] = useState(role ? false : true);
+  const [hasRole, setHasRole] = useState(role ? false : true);
 
   const checkRole = (role) => {
+    setIsAdmin(false);
     if (role === "admin") {
       setIsAdmin(true);
     } else {
       setIsAdmin(false);
+    }
+
+    setHasRole(false);
+    if (role != null) {
+      setHasRole(true);
+    } else {
+      setHasRole(false);
     }
   }
 
@@ -37,30 +46,45 @@ export default function Menu() {
           <li>
             <NavLink activeClassName="active" to="/user">Welcome</NavLink>
           </li>
-          <li>
-            <NavLink activeClassName="active" to="/productsearch">Search on product</NavLink>
-          </li>
-          <li>
-            <NavLink activeClassName="active" to="/category">Category</NavLink>
-          </li>
-          <li>
-            <NavLink activeClassName="active" to="/onsale">On Sale</NavLink>
-          </li>
-          <li>
-            <NavLink activeClassName="active" to="/adduser">Add user</NavLink>
-          </li>
-          <li>
-            <NavLink activeClassName="active" to="/edituser">Edit User</NavLink>
-          </li>
           {
             isAdmin && (
               <li>
-                <NavLink activeClassName="active" to="/users">See all users</NavLink>
+                <NavLink activeClassName="active" to="/addsport">Add Sport</NavLink>
+              </li>
+            )}
+          {
+            !isAdmin && (
+              <li>
+                <NavLink activeClassName="active" to="/sports">All Sports</NavLink>
+              </li>
+            )}
+          {
+            isAdmin && (
+              <li>
+                <NavLink activeClassName="active" to="/sportsadmin">All Sports</NavLink>
+              </li>
+            )}
+          {
+            !isAdmin && (
+              <li>
+                <NavLink activeClassName="active" to="/sportteams">All Sport Teams</NavLink>
               </li>
             )}
           <li>
-            <NavLink activeClassName="active" to="/favorit">Favorit list</NavLink>
+            <NavLink activeClassName="active" to="/adduser">Add User</NavLink>
           </li>
+          {
+            hasRole && (
+              <li>
+                <NavLink activeClassName="active" to="/edituser">Edit User</NavLink>
+              </li>
+            )}
+          {
+            isAdmin && (
+              <li>
+                <NavLink activeClassName="active" to="/users">All Users</NavLink>
+              </li>
+            )}
         </ul>
       </nav>
 
@@ -71,14 +95,17 @@ export default function Menu() {
         <Route path="/user">
           <User />
         </Route>
-        <Route path="/productsearch">
-          <ProductSearch />
+        <Route path="/addsport">
+          <AddSport />
         </Route>
-        <Route path="/category">
-          <Category />
+        <Route path="/sports">
+          <Sports />
         </Route>
-        <Route path="/onsale">
-          <OnSale />
+        <Route path="/sportsadmin">
+          <SportsAdmin />
+        </Route>
+        <Route path="/sportteams">
+          <SportTeams />
         </Route>
         <Route path="/adduser">
           <AddUser />
@@ -88,9 +115,6 @@ export default function Menu() {
         </Route>
         <Route path="/users">
           <Users />
-        </Route>
-        <Route path="/favorit">
-          <Favorit />
         </Route>
       </Switch>
     </div>

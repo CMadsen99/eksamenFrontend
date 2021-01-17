@@ -19,6 +19,8 @@ const loggedIn = () => {
 };
 const logout = () => {
   localStorage.removeItem("jwtToken");
+  localStorage.removeItem("role");
+  localStorage.removeItem("name");
 };
 
 const parseRole = (token) => {
@@ -97,7 +99,6 @@ function apiFacade() {
   };
   const fetchEditUser = (user) => {
     const options = makeOptions("PUT", true, user); //True add's the token
-    console.log(getUser())
     return fetch(URL + "/api/users/" +  getUser(), options).then(handleHttpErrors);
   };
   const fetchGetallUsers = () => {
@@ -119,6 +120,26 @@ function apiFacade() {
   const fetchAddFavorit = (product) => {
     const options = makeOptions("POST", true, product); //True add's the token
     return fetch(URL + "/api/products/favorites/" + getUser(), options).then(handleHttpErrors);
+  };
+
+  const fetchAddSport = (sport) => {
+    const options = makeOptions("POST", true, sport); //True add's the token
+    return fetch(URL + "/api/sports", options).then(handleHttpErrors);
+  };
+
+  const fetchAllSports = () => {
+    const options = makeOptions("GET", true); //True add's the token
+    return fetch(URL + "/api/sports/all", options).then(handleHttpErrors);
+  };
+
+  const fetchAddSportTeam = (sportTeam, sportName) => {
+    const options = makeOptions("POST", true, sportTeam); //True add's the token
+    return fetch(URL + "/api/sports/teams/" + sportName, options).then(handleHttpErrors);
+  };
+
+  const fetchAllSportTeams = () => {
+    const options = makeOptions("GET", true); //True add's the token
+    return fetch(URL + "/api/sports/teams/all", options).then(handleHttpErrors);
   };
 
   const makeOptions = (method, addToken, body) => {
@@ -145,16 +166,14 @@ function apiFacade() {
     login,
     logout,
     fetchUserData,
-    fetchProductData, 
-    fetchProductsOnSale,
-    fetchCategoriesData, 
     fetchAddUser,
     fetchEditUser,
     fetchGetallUsers,
     fetchDeleteUser,
-    fetchGetallFavorites,
-    fetchDeleteFavorit,
-    fetchAddFavorit,
+    fetchAddSport,
+    fetchAllSports,
+    fetchAddSportTeam,
+    fetchAllSportTeams,
     getRole,
     getUser,
   };
