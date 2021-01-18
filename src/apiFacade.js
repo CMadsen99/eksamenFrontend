@@ -75,51 +75,27 @@ function apiFacade() {
   const fetchUserData = () => {
     const options = makeOptions("GET", true); //True add's the token
     return fetch(URL + "/api/info/" + getRole(), options).then(
-      handleHttpErrors
-    );
-  };
-  const fetchProductData = (search) => {
-    const options = makeOptions("GET", true); //True add's the token
-    return fetch(URL + "/api/products/" + search, options).then(handleHttpErrors);
+      handleHttpErrors);
   };
   
-  const fetchProductsOnSale = () => {
-    const options = makeOptions("GET", true); //True add's the token
-    return fetch(URL + "/api/products/offers", options).then(handleHttpErrors);
-  };
-
-  const fetchCategoriesData = (category) => {
-    const options = makeOptions("GET", true); //True add's the token
-    return fetch(URL + "/api/products/categories/"+ category, options).then(handleHttpErrors);
-  };
-
   const fetchAddUser = (user) => {
     const options = makeOptions("POST", true, user); //True add's the token
     return fetch(URL + "/api/users", options).then(handleHttpErrors);
   };
+
   const fetchEditUser = (user) => {
     const options = makeOptions("PUT", true, user); //True add's the token
     return fetch(URL + "/api/users/" +  getUser(), options).then(handleHttpErrors);
   };
+
   const fetchGetallUsers = () => {
     const options = makeOptions("GET", true); //True add's the token
     return fetch(URL + "/api/users/all", options).then(handleHttpErrors);
   };
+
   const fetchDeleteUser = (user) => {
     const options = makeOptions("DELETE", true, user); //True add's the token
     return fetch(URL + "/api/users/" + user, options).then(handleHttpErrors);
-  };
-  const fetchGetallFavorites = () => {
-    const options = makeOptions("GET", true); //True add's the token
-    return fetch(URL + "/api/products/favorites/" + getUser(), options).then(handleHttpErrors);
-  };
-  const fetchDeleteFavorit = (sku) => {
-    const options = makeOptions("DELETE", true); //True add's the token
-    return fetch(URL + "/api/products/favorites/"+ sku +"/users/" + getUser(), options).then(handleHttpErrors);
-  };
-  const fetchAddFavorit = (product) => {
-    const options = makeOptions("POST", true, product); //True add's the token
-    return fetch(URL + "/api/products/favorites/" + getUser(), options).then(handleHttpErrors);
   };
 
   const fetchAddSport = (sport) => {
